@@ -1,6 +1,7 @@
 import React from 'react';
 import TaskList from './components/TaskList.js';
 import './App.css';
+import  { useState } from 'react';
 
 const TASKS = [
   {
@@ -16,6 +17,20 @@ const TASKS = [
 ];
 
 const App = () => {
+  const [taskStatus, setTaskStatus] = useState(TASKS);
+
+  const changeComplete = (id, isComplete) => {
+    const newTask = taskStatus.map(task) => {
+      if (task.id === id) {
+        const updatedTask = { ...TASKS }
+        if () {
+          something 
+        } else if () {
+          something 
+        }
+    }
+  }
+
   return (
     <div className="App">
       <header className="App-header">
