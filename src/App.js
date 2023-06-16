@@ -22,13 +22,21 @@ const App = () => {
   const changeComplete = (id, isComplete) => {
     const newTaskData = tasksData.map((task) => {
       if (task.id === id) {
-        const updatedTask = { ...task }
+        const updatedTask = { ...task };
         task.isComplete = !isComplete;
         return updatedTask;
       } else {
         return { ...task };
       }
     });
+    setTaskStatus(newTaskData);
+  };
+
+  // Copied from the live code in class 
+  const deleteTask = (id) => {
+    const newTaskData = tasksData.filter(
+      (task) => task.id !== id 
+    );
     setTaskStatus(newTaskData);
   };
 
@@ -40,7 +48,11 @@ const App = () => {
       </header>
       <main>
         {/* Passing in current state  */}
-        <div>{<TaskList tasks={tasksData} changeComplete={changeComplete} />}</div>
+        <div>{<TaskList 
+          tasks={tasksData} 
+          changeComplete={changeComplete} 
+          deleteTask={deleteTask}
+        />}</div>
       </main>
     </div>
   );
