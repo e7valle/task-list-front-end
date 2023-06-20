@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import './Task.css';
 
 // Added changeComplete and deleteTask here 
-const Task = ({ id, title, isComplete, changeComplete, deleteTask }) => {
+const Task = ({ id, title, isComplete, updateTaskData, deleteTask }) => {
   // const [complete, setComplete] = useState(isComplete);
   // const buttonClass = complete ? 'tasks__item__toggle--completed' : '';
   const buttonClass = isComplete ? 'tasks__item__toggle--completed' : '';
@@ -14,7 +14,7 @@ const Task = ({ id, title, isComplete, changeComplete, deleteTask }) => {
       <button
         className={`tasks__item__toggle ${buttonClass}`}
         onClick={() => {
-          changeComplete(id, isComplete);
+          updateTaskData(id);
         }}
       >
         {title}
@@ -35,7 +35,7 @@ Task.propTypes = {
   title: PropTypes.string.isRequired,
   isComplete: PropTypes.bool.isRequired,
   // Added this prop for changeComplete and deleteTask below
-  changeComplete: PropTypes.func.isRequired,
+  updateTaskData: PropTypes.func.isRequired,
   deleteTask: PropTypes.func.isRequired,
 };
 

@@ -17,27 +17,41 @@ const TASKS = [
 ];
 
 const App = () => {
-  const [tasksData, setTaskStatus] = useState(TASKS);
+  const [tasksData, setTaskData] = useState(TASKS);
 
-  const changeComplete = (id, isComplete) => {
-    const newTaskData = tasksData.map((task) => {
-      if (task.id === id) {
-        const updatedTask = { ...task };
-        task.isComplete = !isComplete;
-        return updatedTask;
+  const updateTaskData = (taskId) => {
+    console.log('UpdateTaskData is being called');
+    const newTasks = tasksData.map(task => {
+      if (task.id === taskId) {
+        return {...task, isComplete: !task.isComplete};
       } else {
-        return { ...task };
+        return {...task};
       }
     });
-    setTaskStatus(newTaskData);
+    setTaskData(newTasks);
   };
+  
+  // const changeTaskData = (id, isComplete) => {
+  //   const newTask = tasksData.map((task) => {
+  //     if (task.id === id) {
+  //       const updatedTask = { ...task };
+  //       task.isComplete = !isComplete;
+  //       return updatedTask;
+  //     } else {
+  //       return { ...task };
+      
+  //     }
+  //   });
+  //   setTaskStatus(newTask);
+  // };
+
 
   // Copied from the live code in class 
   const deleteTask = (id) => {
     const newTaskData = tasksData.filter(
       (task) => task.id !== id 
     );
-    setTaskStatus(newTaskData);
+    setTaskData(newTaskData);
   };
 
 
@@ -50,7 +64,7 @@ const App = () => {
         {/* Passing in current state  */}
         <div>{<TaskList 
           tasks={tasksData} 
-          changeComplete={changeComplete} 
+          updateTaskData={updateTaskData} 
           deleteTask={deleteTask}
         />}</div>
       </main>

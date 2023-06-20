@@ -4,7 +4,7 @@ import Task from './Task';
 import './TaskList.css';
 
 // use function
-const TaskList = ({ tasks, changeComplete, deleteTask }) => {
+const TaskList = ({ tasks, updateTaskData, deleteTask }) => {
   const getTaskListJSX = (tasks) => {
     return tasks.map((task) => {
       return (
@@ -13,8 +13,8 @@ const TaskList = ({ tasks, changeComplete, deleteTask }) => {
           id={task.id}
           title={task.title}
           isComplete={task.isComplete}
-          // Added changeComplete and deleteTask here
-          changeComplete={changeComplete}
+          // Added changeTaskData and deleteTask here
+          updateTaskData={updateTaskData} 
           deleteTask={deleteTask}
         />
       );
@@ -32,7 +32,7 @@ TaskList.propTypes = {
       isComplete: PropTypes.bool.isRequired,
     })
   ).isRequired,
-  changeComplete: PropTypes.func.isRequired,
+  updateTaskData: PropTypes.func.isRequired,
   deleteTask: PropTypes.func.isRequired,
 };
 
