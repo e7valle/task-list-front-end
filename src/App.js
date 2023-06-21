@@ -20,7 +20,7 @@ import axios from 'axios';
 
 const App = () => {
   const [tasksData, setTaskData] = useState([]);
-    const API = "https://task-list-api-c17.onrender.com/tasks";
+  const API = "https://task-list-api-c17.onrender.com/tasks";
 
   useEffect(() => {
     axios
@@ -36,18 +36,44 @@ const App = () => {
 
 
 
-  const updateTaskData = (taskId) => {
-    console.log('UpdateTaskData is being called');
-    const newTasks = tasksData.map(task => {
-      if (task.id === taskId) {
-        console.log(task.isComplete);
-        return {...task, isComplete: !task.isComplete};
-      } else {
-        return {...task};
-      }
-    });
-    setTaskData(newTasks);
-  };
+  const updateTaskData = (taskId, task) => {
+
+    let mark = 'mark_incomplete';
+    if (task.isComplete){
+      mark = 'mark_incomplete';
+    } else {
+      mark = 'mark_complete';
+    }
+
+    axios
+      .patch(`${API}/${taskId}/${mark}`)
+      .then((result) => {
+        console.log(result.data);
+        axios
+          .get(API)
+          .then((result) => {
+            setTaskData(result.data);
+            })
+          .catch((err) => {
+            console.log(err);
+          });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    };
+    // console.log('UpdateTaskData is being called');
+  //   const newTasks = tasksData.map(task => {
+  //     if (task.id === taskId) {
+  //       // console.log(task.isComplete);
+  //       return {...task, isComplete: !task.isComplete};
+  //     } else {
+  //       return {...task};
+  //     }
+  //   });
+  //   setTaskData(newTasks);
+  // };
+
   
   const deleteTask = (id) => {
     axios

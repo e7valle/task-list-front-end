@@ -8,13 +8,13 @@ const Task = ({ id, title, isComplete, updateTaskData, deleteTask }) => {
   // const [complete, setComplete] = useState(isComplete);
   // const buttonClass = complete ? 'tasks__item__toggle--completed' : '';
   const buttonClass = isComplete ? 'tasks__item__toggle--completed' : '';
-
+  const task = {id,title,isComplete};
   return (
     <li className="tasks__item">
       <button
         className={`tasks__item__toggle ${buttonClass}`}
         onClick={() => {
-          updateTaskData(id);
+          updateTaskData(id,task);
         }}
       >
         {title}
@@ -33,7 +33,7 @@ const Task = ({ id, title, isComplete, updateTaskData, deleteTask }) => {
 Task.propTypes = {
   id: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
-  isComplete: PropTypes.bool.isRequired,
+  isComplete: PropTypes.bool,
   // Added this prop for changeComplete and deleteTask below
   updateTaskData: PropTypes.func.isRequired,
   deleteTask: PropTypes.func.isRequired,
