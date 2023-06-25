@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './NewTaskForm.css';
+import PropTypes from 'prop-types';
 
 
 const INITIAL_FORM_DATA = {
@@ -7,7 +8,7 @@ const INITIAL_FORM_DATA = {
     description: '',
 };
 
-const NewTaskForm = () => {
+const NewTaskForm = ({addTask}) => {
     const [formData, setFormData] = useState(INITIAL_FORM_DATA);
 
     const handleChange = (event) => {
@@ -21,9 +22,15 @@ const NewTaskForm = () => {
         setFormData(newTask);
     };
 
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        addTask(formData);
+        setFormData(INITIAL_FORM_DATA);
+    };
+
     return (
         <section>
-            <form>
+            <form onSubmit={handleSubmit}>
                 <label htmlFor='title'>Task Title</label>
                 <input 
                     type="text" 
@@ -38,11 +45,15 @@ const NewTaskForm = () => {
                     name="description"
                     value={formData.description}
                     onChange={handleChange}/>
+                <input type='submit' value='submit'/>
             </form>
         </section>
-    )
+    );
 
 };
 
+NewTaskForm.propTypes = {
+    addTask: PropTypes.func.isRequired,
+};
 
 export default NewTaskForm;

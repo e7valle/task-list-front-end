@@ -35,6 +35,34 @@ const App = () => {
       });
   }, []);
 
+  const getAllTasks = () => {
+    axios
+      .get(API)
+      .then((result) => {
+        console.log('in helper function');
+        setTaskData(result.data);
+      })
+      .catch((err)=> {
+        console.log(err);
+      });
+  };
+
+  useEffect(() => {
+    getAllTasks();
+  }, []);
+
+  const postTask = (newTaskData) => {
+    axios
+      .post(API, newTaskData)
+      .then((result) => {
+        console.log(result.data);
+        getAllTasks();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
 
 
   const updateTaskData = (taskId, task) => {
@@ -50,14 +78,15 @@ const App = () => {
       .patch(`${API}/${taskId}/${mark}`)
       .then((result) => {
         console.log(result.data);
-        axios
-          .get(API)
-          .then((result) => {
-            setTaskData(result.data);
-            })
-          .catch((err) => {
-            console.log(err);
-          });
+        // axios
+        //   .get(API)
+        //   .then((result) => {
+        //     setTaskData(result.data);
+        //     })
+        //   .catch((err) => {
+        //     console.log(err);
+        //   });
+        getAllTasks();
       })
       .catch((err) => {
         console.log(err);
@@ -125,7 +154,7 @@ const App = () => {
           tasks={tasksData} 
           updateTaskData={updateTaskData} 
           deleteTask={deleteTask}/>}
-          <NewTaskForm/>
+          <NewTaskForm addTask={postTask}/>
         </div>
       </main>
     </div>
